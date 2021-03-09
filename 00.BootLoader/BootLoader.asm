@@ -9,7 +9,7 @@ jmp 0x07C0:START	; CS 세그먼트 레지스터에 0x07C0을 복사하면서, ST
 ; FS64 OS에 관련된 환경 설정 값
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-TOTALSECTORCOUNT: dw 1024	; 부트로더를 제외한 FS64 OS 이미지의 크기 최대 1152 섹터(0x90000byte)까지 가능
+TOTALSECTORCOUNT: dw 1	; 부트로더를 제외한 FS64 OS 이미지의 크기 최대 1152 섹터(0x90000byte)까지 가능
 
 ;;;;;;;;;;;
 ; 코드 영역
@@ -49,7 +49,7 @@ START:
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	push MESSAGE1		; 출력할 메시지의 주소를 스택에 삽입
 	push 0			; 화면 Y 좌표(0)를 스택에 삽입
-	push 25			; 화면 X 좌표(0)를 스택에 삽입
+	push 24			; 화면 X 좌표(0)를 스택에 삽입
 	call PRINTMESSAGE	; PRINTMESSAGE 함수 호출
 	add sp, 6		; 삽입한 파라미터 제거
 
@@ -58,7 +58,7 @@ START:
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	push IMAGELOADINGMESSAGE	; 출력할 메시지의 주소를 스택에 삽입
 	push 1				; 화면 Y 좌표(1)를 스택에 삽입
-	push 25				; 화면 X 좌표(0)를 스택에 삽입
+	push 24				; 화면 X 좌표(0)를 스택에 삽입
 	call PRINTMESSAGE		; PRINTMESSAGE 함수 호출
 	add sp, 6			; 삽입한 파라미터 제거
 
@@ -143,7 +143,7 @@ READEND:
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	push LOADINGCOMPLETEMESSAGE	; 출력할 메시지의 주소를 스택에 삽입
 	push 1				; 출력할 메시지의 주소를 스택에 삽입
-	push 45				; 화면 X 좌표(20)를 스택에 삽입
+	push 44				; 화면 X 좌표(20)를 스택에 삽입
 	call PRINTMESSAGE		; PRINTMESSAGE 함수 호출
 	add sp, 6			; 삽입한 파라미터 제거
 
