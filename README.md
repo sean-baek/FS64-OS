@@ -5,4 +5,5 @@
 
 # 사용법
 1. 우분투의 터미널에서 FS64 OS 디렉토리로 이동합니다.
-2. qemu-system-x86-64 -m 64 -fda ./Disk.img -rtc base=localtime -M pc 을 입력하여 실행.
+2. make
+3. qemu-system-x86-64 -m 64 -fda ./Disk.img -rtc base=localtime -M pc 을 입력하여 실행.
