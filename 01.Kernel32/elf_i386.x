@@ -15,17 +15,17 @@ SECTIONS
 
 /***************************************************************************/
 /* 섹션 재배치로 인해 앞으로 이동된 부분 */
-.text           :
-  {
-    *(.text.unlikely .text.*_unlikely .text.unlikely.*)
-    *(.text.exit .text.exit.*)
-    *(.text.startup .text.startup.*)
-    *(.text.hot .text.hot.*)
-    *(SORT(.text.sorted.*))
-    *(.text .stub .text.* .gnu.linkonce.t.*)
-    /* .gnu.warning sections are handled specially by elf.em.  */
-    *(.gnu.warning)
-  }
+.text 0x10200	:
+{
+  *(.text.unlikely .text.*_unlikely .text.unlikely.*)
+  *(.text.exit .text.exit.*)
+  *(.text.startup .text.startup.*)
+  *(.text.hot .text.hot.*)
+  *(SORT(.text.sorted.*))
+  *(.text .stub .text.* .gnu.linkonce.t.*)
+  /* .gnu.warning sections are handled specially by elf.em.  */
+  *(.gnu.warning)
+} = 0x90909090
 
 .rodata         : { *(.rodata .rodata.* .gnu.linkonce.r.*) }
 .rodata1        : { *(.rodata1) }
@@ -166,7 +166,7 @@ _edata = .; PROVIDE (edata = .);
   .data.rel.ro : { *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*) *(.data.rel.ro .data.rel.ro.* .gnu.linkonce.d.rel.ro.*) }
   .dynamic        : { *(.dynamic) }
   .got            : { *(.got) *(.igot) }
-  . = DATA_SEGMENT_RELRO_END (SIZEOF (.got.plt) >= 12 ? 12 : 0, .);
+/* . = DATA_SEGMENT_RELRO_END (SIZEOF (.got.plt) >= 12 ? 12 : 0, .); */
   .got.plt        : { *(.got.plt) *(.igot.plt) }
 /*********************************************************/
 /* 섹션 재배치로 인해 앞으로 이동된 부분 */
