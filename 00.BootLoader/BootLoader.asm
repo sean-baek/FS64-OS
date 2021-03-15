@@ -49,7 +49,7 @@ START:
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	push MESSAGE1		; 출력할 메시지의 주소를 스택에 삽입
 	push 0			; 화면 Y 좌표(0)를 스택에 삽입
-	push 24			; 화면 X 좌표(0)를 스택에 삽입
+	push 0			; 화면 X 좌표(0)를 스택에 삽입
 	call PRINTMESSAGE	; PRINTMESSAGE 함수 호출
 	add sp, 6		; 삽입한 파라미터 제거
 
@@ -58,7 +58,7 @@ START:
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	push IMAGELOADINGMESSAGE	; 출력할 메시지의 주소를 스택에 삽입
 	push 1				; 화면 Y 좌표(1)를 스택에 삽입
-	push 24				; 화면 X 좌표(0)를 스택에 삽입
+	push 4				; 화면 X 좌표(0)를 스택에 삽입
 	call PRINTMESSAGE		; PRINTMESSAGE 함수 호출
 	add sp, 6			; 삽입한 파라미터 제거
 
@@ -143,7 +143,7 @@ READEND:
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	push LOADINGCOMPLETEMESSAGE	; 출력할 메시지의 주소를 스택에 삽입
 	push 1				; 출력할 메시지의 주소를 스택에 삽입
-	push 44				; 화면 X 좌표(20)를 스택에 삽입
+	push 24				; 화면 X 좌표(20)를 스택에 삽입
 	call PRINTMESSAGE		; PRINTMESSAGE 함수 호출
 	add sp, 6			; 삽입한 파라미터 제거
 
@@ -159,7 +159,7 @@ READEND:
 HANDLEDISKERROR:
 	push DISKERRORMESSAGE	; 에러 문자열의 주소를 스택에 삽입
 	push 1			; 화면 Y 좌표(1)를 스택에 삽입
-	push 20 		; 화면 X 좌표(20)를 스택에 삽입
+	push 24 		; 화면 X 좌표(20)를 스택에 삽입
 	call PRINTMESSAGE	; PRINTMESSAGE 함수 호출
 
 	jmp $			; 현재 위치에서 무한 루프 수행

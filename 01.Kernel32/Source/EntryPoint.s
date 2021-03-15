@@ -14,6 +14,24 @@ START:
 	mov ds, ax		; DS 세그먼트 레지스터에 설정
 	mov es, ax		; ES 세그먼트 레지스터에 설정
 
+	;;;;;;;;;;;;;;;;;;
+	; A20 게이트를 활성화
+	;;;;;;;;;;;;;;;;;;
+	; BIOS 서비스를 사용해서 A20 게이트를 활성화
+	mov ax, 0x2401	; A20 게이트 활성화 서비스 설정
+	int 0x15		; BIOS 인터럽트 서비스 호출
+
+	jc .A20GATEERROR	; A20 게이트 활성화가 성공했는지 확인
+	jmp .A20GATESUCCESS
+
+.A20GATEERROR:
+	; 에러 발생 시 시스템 컨트롤 포트로 전환 시도
+	in al, 0x92		; 시스템 컨트롤 포트(0x92)에서 1byte를 읽어 AL 레지스터에 저장
+	or al, 0x02		; 읽은 값에 A20 게이트 비트(bit 1)를 1로 설정
+	and al, 0xFE	; 시스템 리셋 방지를 위해 0xFE와 AND 연산하여 bit 0를(을) 0으로 설정
+	out 0x92, al	; 시스템 컨트롤 포트 (0x92)에 변경된 값을 1byte 설정
+
+.A20GATESUCCESS:
 	cli				; 인터럽트가 발생하지 못하도록 설정
 	lgdt [ GDTR ]	; GDTR 자료구조를 프로세서에 설정하여 GDT 테이블을 로드
 
@@ -101,7 +119,7 @@ PRINTMESSAGE:
 	je .MESSAGEEND	; 복사한 문자의 값이 0이면 문자열이 종료되었음을 의미하므로
 					; .MESSAGEEND로 이동하여 문자 출력 종료
 
-	mov byte [ edi + 0xB8030 ], cl	; 0이 아니라면 비디오 메모리 주소 0xB8000 + EDI에 문자를 출력
+	mov byte [ edi + 0xB8012 ], cl	; 0이 아니라면 비디오 메모리 주소 0xB8000 + EDI에 문자를 출력
 
 	add esi, 1		; ESI 레지스터에 1을 더하여 다음 문자열로 이동
 	add edi, 2		; EDI 레지스터에 2를 더하여 비디오 메모리의 다음 문자 위치로 이동
