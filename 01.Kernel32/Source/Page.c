@@ -28,7 +28,7 @@ void kInitializePageTables(void)
 	}
 	for(i = 64; i < PAGE_MAXENTRYCOUNT; i++)
 	{
-		kSetPageEntryData((&pstPDPTEntry[i]), 0, 0, 0, 0);
+		kSetPageEntryData(&(pstPDPTEntry[i]), 0, 0, 0, 0);
 	}
 
 	// 페이지 디렉터리 테이블 생성
@@ -40,7 +40,7 @@ void kInitializePageTables(void)
 	{
 		// 32bit로는 상위 주소를 표현할 수 없으므로, MB 단위로 계산한 다음
 		// 최종 결과를 다시 4KB(12bit)로 나누어 32bit 이상의 주소를 계산함
-		kSetPageEntryData( &(pstPDEntry[i]), ( i * (0x200000 >> 20 ) ) >> 12, dwMappingAddress, PAGE_FLAGS_DEFAULT | PAGE_FLAGS_PS, 0);
+		kSetPageEntryData( &(pstPDEntry[i]), ( i * (PAGE_DEFAULTSIZE >> 20 ) ) >> 12, dwMappingAddress, PAGE_FLAGS_DEFAULT | PAGE_FLAGS_PS, 0);
 		dwMappingAddress += PAGE_DEFAULTSIZE;
 	}
 }
