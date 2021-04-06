@@ -4,8 +4,8 @@
 ---
 
 # 사용법
-1. 우분투의 터미널에서 FS64 OS 디렉토리로 이동.
-2. make clean
-3. 04.Utility/00.ImageMaker
-4. make
-5. qemu-system-x86_64 -m 64 -fda ./Disk.img -rtc base=localtime -M pc
+1. cd FS64\ OS -> make -> sudo qemu-system-x86_64 -m 64 -fda ./Disk.img -rtc base=localtime -M pc
+
+Or
+
+2. cd FS64\ OS/04.Utility/00.ImageMaker -> make -> cd ../../ -> make -> sudo qemu-system-x86_64 -m 64 -fda ./Disk.img -rtc base=localtime -M pc
